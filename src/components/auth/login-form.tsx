@@ -65,15 +65,13 @@ export function LoginForm() {
   async function handleGoogleSignIn() {
     setIsGoogleLoading(true);
     const provider = new GoogleAuthProvider();
-    // Ensure account chooser shows and reduces cached-session confusion
-    provider.setCustomParameters({ prompt: 'select_account' });
     try {
       await signInWithPopup(auth, provider);
       router.push('/');
     } catch (error: any) {
       toast({
         title: 'Google Sign-In Failed',
-        description: typeof error?.message === 'string' ? error.message : 'Please try again or use email/password.',
+        description: error.message,
         variant: 'destructive',
       });
     } finally {

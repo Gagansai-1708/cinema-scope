@@ -55,7 +55,7 @@ const menuItems = [
 export function MainSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, toast, ensureAuthed } = useAuth();
+  const { user, toast } = useAuth();
   const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -123,11 +123,7 @@ export function MainSidebar() {
         </SidebarMenu>
         <Button 
           className="mt-4 w-full rounded-full text-lg h-12 group-data-[collapsible=icon]:h-12 group-data-[collapsible=icon]:w-12 group-data-[collapsible=icon]:p-0"
-          onClick={() => {
-            if (ensureAuthed({ actionName: 'create a post' })) {
-              setIsPostDialogOpen(true);
-            }
-          }}
+          onClick={() => setIsPostDialogOpen(true)}
         >
           <Feather className="group-data-[collapsible=icon]:h-6 group-data-[collapsible=icon]:w-6"/>
           <span className="group-data-[collapsible=icon]:hidden">Post</span>

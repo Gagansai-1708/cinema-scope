@@ -7,13 +7,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'pbs.twimg.com' },
     ],
   },
-  // Allow deployment even if there are type or lint errors
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 }
 
 module.exports = nextConfig
