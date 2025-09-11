@@ -6,10 +6,16 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
-  const { signInAsGuest } = useAuth();
+  const { signInAsGuest, isGuest } = useAuth();
   const router = useRouter();
+  useEffect(() => {
+    if (isGuest) {
+      router.replace('/');
+    }
+  }, [isGuest, router]);
   return (
     <div className="relative min-h-screen w-full bg-background text-white">
       {/* Background Gradient & Grid */}
@@ -55,7 +61,7 @@ export default function LoginPage() {
                     className="ml-auto"
                     onClick={() => {
                       signInAsGuest();
-                      router.push('/');
+                      router.replace('/');
                     }}
                   >
                     Continue as Guest
