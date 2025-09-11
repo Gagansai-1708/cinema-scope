@@ -118,10 +118,10 @@ const ChartTooltipContent = React.forwardRef<
 
   const { config } = useChart()
 
-  if (!active || payload.length === 0) return null
-
+  // Hooks must be called unconditionally and before any early returns
   const tooltipLabel = React.useMemo(() => {
     if (hideLabel) return null
+    if (!payload || payload.length === 0) return null
     const item = payload[0]
     const key = labelKey || item.dataKey || item.name || "value"
     const itemConfig = config[key as keyof typeof config]
@@ -132,6 +132,8 @@ const ChartTooltipContent = React.forwardRef<
     if (!value) return null
     return <div className={cn("font-medium", labelClassName ?? undefined)}>{value}</div>
   }, [label, labelFormatter, payload, hideLabel, labelClassName, config, labelKey])
+
+  if (!active || !payload || payload.length === 0) return null
 
   return (
     <div
