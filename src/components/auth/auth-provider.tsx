@@ -40,40 +40,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const signInAsGuest: AuthContextType['signInAsGuest'] = () => {
-    setIsGuest(true);
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('guest', '1');
-    }
-    toast({ title: 'Guest mode', description: 'You are browsing as a guest.' });
-  };
-
-  const ensureAuthed: AuthContextType['ensureAuthed'] = (options) => {
-    if (user) return true;
-    // Allow guest to browse but require auth to act
-    // Trigger a lightweight hint to sign in
-    toast({
-      title: 'Sign in required',
-      description: options?.actionName
-        ? `Please sign in to ${options.actionName}.`
-        : 'Please sign in to continue.',
-    });
-    if (typeof window !== 'undefined') {
-      // Direct to login page
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 250);
-    }
-    return false;
-  };
-
   const value: AuthContextType = {
     user,
     loading,
     toast,
     isGuest,
-    signInAsGuest,
-    ensureAuthed,
+    signInAsGuest: () => {
+      setIsGuest(true);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('guest', '1');
+      }
+      toast({ title: 'Guest mode', description: 'You are browsing as a guest.' });
+    },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -1,21 +1,11 @@
-"use client";
 
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { GuestButton } from "@/components/auth/guest-button";
 
 export default function LoginPage() {
-  const { signInAsGuest, isGuest } = useAuth();
-  const router = useRouter();
-  useEffect(() => {
-    if (isGuest) {
-      router.replace('/');
-    }
-  }, [isGuest, router]);
   return (
     <div className="relative min-h-screen w-full bg-background text-white">
       {/* Background Gradient & Grid */}
@@ -56,16 +46,7 @@ export default function LoginPage() {
                 <LoginForm />
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">or</span>
-                  <Button
-                    variant="secondary"
-                    className="ml-auto"
-                    onClick={() => {
-                      signInAsGuest();
-                      router.replace('/');
-                    }}
-                  >
-                    Continue as Guest
-                  </Button>
+                  <GuestButton />
                 </div>
               </div>
             </div>
