@@ -11,7 +11,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
+  const { toast: toastFn } = useToast();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -22,7 +22,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  const value = {
+  // Wrap toast to match AuthContextType
+  const toast: AuthContextType['toast'] = ({ title, description, variant }) => {
+    toastFn({
+      title: title ? title.toString() : undefined,
+      description: description ? description.toString() : undefined,
+      variant,
+    });
+  };
+
+  const value: AuthContextType = {
     user,
     loading,
     toast,

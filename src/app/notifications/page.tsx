@@ -56,7 +56,7 @@ export default function NotificationsPage() {
     async function fetchNotifications() {
       try {
         const notificationsCollection = collection(db, "notifications");
-        const q = query(notificationsCollection, where("userId", "==", user.uid), orderBy("timestamp", "desc"));
+        const q = query(notificationsCollection, where("userId", "==", user!.uid), orderBy("timestamp", "desc"));
         const querySnapshot = await getDocs(q);
         const notificationsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as NotificationType));
         setNotifications(notificationsData);

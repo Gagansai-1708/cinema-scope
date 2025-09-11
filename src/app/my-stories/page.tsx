@@ -309,7 +309,7 @@ export default function MyStoriesPage() {
                     </Tooltip>
                   </TooltipProvider>
                 )}
-                <Button onClick={handleSaveStory} disabled={isSaving || (activeStory && activeStory.authorId === 'system')}>
+                <Button onClick={handleSaveStory} disabled={isSaving || (!!activeStory && activeStory.authorId === 'system')}>
                   {isSaving ? <Loader2 className="mr-2 animate-spin" /> : <Save className="mr-2" />}
                   Save Story
                 </Button>

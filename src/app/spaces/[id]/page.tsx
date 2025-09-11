@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -10,11 +9,8 @@ import {
   Mic,
   MicOff,
   PhoneOff,
-  UserPlus,
-  Share2,
   Hand,
-  MessageSquare,
-  BadgeCheck,
+  Share2,
   Heart,
   Laugh,
   ThumbsUp,
@@ -42,12 +38,12 @@ const mockSpaceData = {
 };
 
 const reactions = [
-    { icon: <Heart className="h-6 w-6" />, name: 'Heart' },
-    { icon: <ThumbsUp className="h-6 w-6" />, name: 'Thumbs Up' },
-    { icon: <Hand className="h-6 w-6" />, name: 'Clap' },
-    { icon: <Laugh className="h-6 w-6" />, name: 'Laugh' },
-    { icon: <PartyPopper className="h-6 w-6" />, name: 'Celebrate' },
-]
+  { icon: <Heart className="h-6 w-6" />, name: 'Heart' },
+  { icon: <ThumbsUp className="h-6 w-6" />, name: 'Thumbs Up' },
+  { icon: <Hand className="h-6 w-6" />, name: 'Clap' },
+  { icon: <Laugh className="h-6 w-6" />, name: 'Laugh' },
+  { icon: <PartyPopper className="h-6 w-6" />, name: 'Celebrate' },
+];
 
 export default function SpaceRoomPage() {
   const router = useRouter();
@@ -86,17 +82,22 @@ export default function SpaceRoomPage() {
                     <AvatarImage src={person.avatar} />
                     <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
                   </Avatar>
-                   {/* @ts-ignore */}
-                  {person.isHost && (
-                    <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2" variant="default">Host</Badge>
+
+                  {/* Badge for host */}
+                  {'isHost' in person && person.isHost && (
+                    <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2" variant="default">
+                      Host
+                    </Badge>
                   )}
                 </div>
+
                 <p className="font-semibold text-sm truncate">{person.name}</p>
-                 {/* @ts-ignore */}
-                {person.isMuted !== undefined && (
-                   <div className={cn("p-1.5 rounded-full", person.isMuted ? "bg-muted" : "bg-green-500/20")}>
-                        {person.isMuted ? <MicOff className="h-4 w-4 text-muted-foreground"/> : <Mic className="h-4 w-4 text-green-500" />}
-                   </div>
+
+                {/* Mic status for speakers */}
+                {'isMuted' in person && (
+                  <div className={cn('p-1.5 rounded-full', person.isMuted ? 'bg-muted' : 'bg-green-500/20')}>
+                    {person.isMuted ? <MicOff className="h-4 w-4 text-muted-foreground" /> : <Mic className="h-4 w-4 text-green-500" />}
+                  </div>
                 )}
               </div>
             ))}
@@ -122,38 +123,40 @@ export default function SpaceRoomPage() {
       {/* Footer / Controls */}
       <footer className="sticky bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-sm border-t border-border">
         <div className="flex items-center justify-between">
-           <Button variant="destructive" size="lg" className="rounded-full px-6" onClick={() => router.push('/spaces')}>
-                <PhoneOff className="mr-2 h-5 w-5" />
-                Leave
+          <Button variant="destructive" size="lg" className="rounded-full px-6" onClick={() => router.push('/spaces')}>
+            <PhoneOff className="mr-2 h-5 w-5" />
+            Leave
+          </Button>
+
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="icon" className="rounded-full h-12 w-12" onClick={() => setIsMuted(prev => !prev)}>
+              {isMuted ? <MicOff /> : <Mic />}
             </Button>
-            
-            <div className="flex items-center gap-2">
-                <Button variant="secondary" size="icon" className="rounded-full h-12 w-12" onClick={() => setIsMuted(prev => !prev)}>
-                    {isMuted ? <MicOff /> : <Mic />}
-                </Button>
-                 <Button variant="secondary" size="icon" className="rounded-full h-12 w-12">
-                    <Hand />
-                </Button>
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button variant="secondary" size="icon" className="rounded-full h-12 w-12">
-                                <Heart />
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="flex gap-2 bg-secondary border-border p-2 rounded-full">
-                           {reactions.map((r, i) => (
-                             <Button key={i} variant="ghost" size="icon" className="rounded-full hover:bg-accent">{r.icon}</Button>
-                           ))}
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            </div>
-            
-            <Button variant="secondary" size="lg" className="rounded-full px-6">
-                <Share2 className="mr-2 h-5 w-5" />
-                Share
+            <Button variant="secondary" size="icon" className="rounded-full h-12 w-12">
+              <Hand />
             </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="secondary" size="icon" className="rounded-full h-12 w-12">
+                    <Heart />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="flex gap-2 bg-secondary border-border p-2 rounded-full">
+                  {reactions.map((r, i) => (
+                    <Button key={i} variant="ghost" size="icon" className="rounded-full hover:bg-accent">
+                      {r.icon}
+                    </Button>
+                  ))}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
+          <Button variant="secondary" size="lg" className="rounded-full px-6">
+            <Share2 className="mr-2 h-5 w-5" />
+            Share
+          </Button>
         </div>
       </footer>
     </div>
