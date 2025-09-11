@@ -31,7 +31,7 @@ type PostComposerDialogProps = {
 const emojis = ['😀', '😂', '😍', '🤔', '😢', '🔥', '👍', '👎', '❤️', '🚀', '🎉', '💯'];
 
 export function PostComposerDialog({ isOpen, setIsOpen, onPostSuccess }: PostComposerDialogProps) {
-  const { user } = useAuth();
+  const { user, ensureAuthed } = useAuth();
   const { toast } = useToast();
   const [content, setContent] = useState('');
   const [isPosting, setIsPosting] = useState(false);
@@ -71,6 +71,9 @@ export function PostComposerDialog({ isOpen, setIsOpen, onPostSuccess }: PostCom
   };
 
   const handlePost = async () => {
+    if (!ensureAuthed({ actionName: 'post' })) {
+      return;
+    }
     if ((!content.trim() && !imageFile && !videoFile) || !user) {
       return;
     }

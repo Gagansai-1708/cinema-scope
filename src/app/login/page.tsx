@@ -3,8 +3,12 @@ import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const { signInAsGuest } = useAuth();
+  const router = useRouter();
   return (
     <div className="relative min-h-screen w-full bg-background text-white">
       {/* Background Gradient & Grid */}
@@ -43,6 +47,19 @@ export default function LoginPage() {
               <p className="mt-2 text-muted-foreground">Welcome back to the universe of cinema.</p>
               <div className="mt-8">
                 <LoginForm />
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">or</span>
+                  <Button
+                    variant="secondary"
+                    className="ml-auto"
+                    onClick={() => {
+                      signInAsGuest();
+                      router.push('/');
+                    }}
+                  >
+                    Continue as Guest
+                  </Button>
+                </div>
               </div>
             </div>
 

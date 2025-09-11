@@ -11,6 +11,11 @@ export type AuthContextType = {
     description?: React.ReactNode;
     variant?: 'default' | 'destructive';
   }) => void;
+  // Guest browsing support
+  isGuest: boolean;
+  signInAsGuest: () => void;
+  // Returns true if authenticated; if not, opens a sign-in dialog and returns false
+  ensureAuthed: (options?: { actionName?: string }) => boolean;
 };
 
 export type Post = {
