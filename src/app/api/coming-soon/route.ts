@@ -21,7 +21,11 @@ export async function GET(request: Request) {
   const language = searchParams.get('language');
 
   if (!TMDB_API_KEY) {
-    return NextResponse.json({ error: 'TMDb API key is not configured' }, { status: 500 });
+    console.error('TMDb API key is not configured');
+    return NextResponse.json({ 
+      error: 'TMDb API key is not configured. Please add TMDB_API_KEY to your environment variables.',
+      hint: 'Get a free API key from https://www.themoviedb.org/settings/api'
+    }, { status: 500 });
   }
 
   try {
