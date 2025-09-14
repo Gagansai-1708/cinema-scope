@@ -143,7 +143,7 @@ export default function SignUpPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-white text-black hover:bg-gray-100 font-semibold"
+                  className="w-full bg-red-600 text-white hover:bg-red-700 font-semibold"
                   disabled={loading}
                 >
                   {loading ? 'Creating Account...' : 'Sign Up'}
@@ -152,16 +152,16 @@ export default function SignUpPage() {
 
               <div className="mt-6">
                 <div className="relative">
-                  <Separator className="bg-white/20" />
+                  <Separator className="bg-red-500/30" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="bg-transparent px-4 text-sm text-gray-300">OR CONTINUE WITH</span>
+                    <span className="bg-gray-900 px-4 text-sm text-red-400">OR CONTINUE WITH</span>
                   </div>
                 </div>
 
                 <Button
                   onClick={handleGoogleSignUp}
                   variant="outline"
-                  className="w-full mt-6 bg-transparent border-white/20 text-white hover:bg-white/10"
+                  className="w-full mt-6 bg-transparent border-red-500/50 text-white hover:bg-red-500/10"
                   disabled={loading}
                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -194,7 +194,7 @@ export default function SignUpPage() {
               Already have an account?{' '}
               <button
                 onClick={() => router.push('/login')}
-                className="text-white hover:underline font-semibold"
+                className="text-red-400 hover:text-red-300 hover:underline font-semibold"
               >
                 Sign In
               </button>
