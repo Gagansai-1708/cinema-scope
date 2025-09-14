@@ -7,7 +7,7 @@ export default function SecuritySettingsPage() {
     <div className="border-b border-border">
         <div className="p-6">
             <h2 className="text-2xl font-bold">Security</h2>
-            <p className="text-muted-foreground">Manage your account's security.</p>
+            <p className="text-muted-foreground">Manage your account&apos;s security.</p>
         </div>
         <div className="p-6 pt-0 space-y-6">
             <Card>

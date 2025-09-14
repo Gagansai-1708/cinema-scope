@@ -274,7 +274,7 @@ export default function Home() {
             {!user && (
               <div className="mt-2 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
                 <p className="text-sm text-purple-300">
-                  You're browsing as a guest. <button 
+                  You&apos;re browsing as a guest. <button 
                     onClick={() => window.location.href = '/signup'} 
                     className="underline hover:text-purple-200"
                   >

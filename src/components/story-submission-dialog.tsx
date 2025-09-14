@@ -31,7 +31,7 @@ export function StorySubmissionDialog({ isOpen, setIsOpen, requirement }: StoryS
                 <DialogHeader>
                     <DialogTitle>Begin Your Submission</DialogTitle>
                     <DialogDescription>
-                        You are about to submit a story for "{requirement.title}". You will be redirected to a dedicated submission page.
+                        You are about to submit a story for &ldquo;{requirement.title}&rdquo;. You will be redirected to a dedicated submission page.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>

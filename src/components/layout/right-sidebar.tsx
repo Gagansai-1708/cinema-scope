@@ -67,7 +67,7 @@ export function RightSidebar() {
 
       <Card className="bg-secondary border-none">
         <CardHeader>
-          <CardTitle>What's Happening</CardTitle>
+          <CardTitle>What&apos;s Happening</CardTitle>
         </CardHeader>
         <CardContent>
           {trends.map(trend => (

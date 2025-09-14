@@ -148,7 +148,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-purple-200">
-                You're currently browsing as a guest. Some features may be limited. 
+                You&apos;re currently browsing as a guest. Some features may be limited. 
                 Sign in with Google to access all features and save your preferences.
               </CardDescription>
             </CardContent>

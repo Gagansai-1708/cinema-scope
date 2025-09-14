@@ -385,7 +385,7 @@ export default function SearchResultPage() {
                                             </div>
                                              <div>
                                                 <span className="font-semibold">Tagline:</span>
-                                                <em className="text-muted-foreground ml-2">"{movie.tagline}"</em>
+                                                <em className="text-muted-foreground ml-2">&ldquo;{movie.tagline}&rdquo;</em>
                                             </div>
                                         </AccordionContent>
                                     </AccordionItem>

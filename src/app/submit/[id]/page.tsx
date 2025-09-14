@@ -252,7 +252,7 @@ function WriterDetailsForm({ onNext, details, setDetails }: { onNext: () => void
     <div className="max-w-2xl mx-auto">
        <Card>
         <CardHeader>
-            <CardTitle>Writer's Details</CardTitle>
+            <CardTitle>Writer&apos;s Details</CardTitle>
             <CardDescription>Before you submit, please provide your contact information. This will be sent to the producer along with your story.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

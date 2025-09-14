@@ -144,7 +144,7 @@ export default function CastMemberPage() {
                 <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground p-8">
                     <Camera className="h-16 w-16 mb-4" />
                     <h2 className="text-xl font-semibold text-foreground">Cast Member Not Found</h2>
-                    <p>The person you're looking for isn't in our database.</p>
+                    <p>The person you&apos;re looking for isn&apos;t in our database.</p>
                      <Button variant="outline" onClick={() => router.back()} className="mt-4">
                         <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
                     </Button>

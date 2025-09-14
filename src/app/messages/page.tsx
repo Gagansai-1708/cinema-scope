@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { AppLayout } from "@/components/layout/app-layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -319,22 +319,22 @@ export default function MessagesPage() {
         }
     };
 
-    const getOtherParticipant = (convo: ConversationType) => {
+    const getOtherParticipant = useCallback((convo: ConversationType) => {
         if (!user && convo.id.startsWith('mock-')) return convo.participantDetails[convo.participants.find(p => p !== 'user-uid')!];
         if (!user) return null;
         const otherId = convo.participants.find(p => p !== user.uid);
         return otherId ? convo.participantDetails[otherId] : null;
-    }
+    }, [user])
     
     const otherParticipant = useMemo(() => {
         if (!selectedConversation) return null;
         return getOtherParticipant(selectedConversation);
-    }, [selectedConversation, user]);
+    }, [selectedConversation, getOtherParticipant]);
     
     const storyProducer = useMemo(() => {
         if (!selectedStory) return null;
         return getOtherParticipant(selectedStory);
-    }, [selectedStory, user]);
+    }, [selectedStory, getOtherParticipant]);
 
     
     const ConversationList = ({convos}: {convos: ConversationType[]}) => (

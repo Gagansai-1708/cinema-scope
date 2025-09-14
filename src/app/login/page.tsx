@@ -174,7 +174,7 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="text-center">
             <p className="text-gray-300">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
                <button
                  onClick={() => router.push('/signup')}
                  className="text-cyan-500 hover:text-cyan-400 hover:underline font-semibold"

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { AppLayout } from '@/components/layout/app-layout';
 import { RightSidebar } from '@/components/layout/right-sidebar';
@@ -94,7 +94,7 @@ export default function ProfilePage() {
   const [bookmarkedPosts, setBookmarkedPosts] = useState<{[key: string]: string}>({});
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
-  const createDefaultProfile = () => {
+  const createDefaultProfile = useCallback(() => {
     if (!user) return null;
     return {
         uid: user.uid,
@@ -109,7 +109,7 @@ export default function ProfilePage() {
             toDate: () => new Date(),
         },
     };
-  }
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
@@ -169,7 +169,7 @@ export default function ProfilePage() {
         unsubscribeBookmarks();
     };
 
-  }, [user, toast]);
+  }, [user, toast, createDefaultProfile, profile]);
   
   const handleActionClick = (
     post: PostType,
@@ -422,8 +422,8 @@ export default function ProfilePage() {
                 })
                 ) : (
                     <div className="text-center p-8 text-muted-foreground">
-                        <h3 className="text-lg font-semibold text-foreground">You haven't posted anything yet</h3>
-                        <p>When you post, it'll show up here.</p>
+                        <h3 className="text-lg font-semibold text-foreground">You haven&apos;t posted anything yet</h3>
+                        <p>When you post, it&apos;ll show up here.</p>
                     </div>
                 )}
             </div>

@@ -101,7 +101,7 @@ export default function MyStoriesPage() {
     });
 
     return () => unsubscribe();
-  }, [user, toast]);
+  }, [user, toast, activeStory]);
 
   useEffect(() => {
       const results = stories.filter(story =>
