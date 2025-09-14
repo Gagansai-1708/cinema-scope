@@ -65,7 +65,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex">
       {/* Left Side - Sign Up Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md space-y-8">
@@ -204,7 +204,7 @@ export default function SignUpPage() {
       </div>
 
       {/* Right Side - Promotional Content */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-gradient-to-br from-purple-600 to-blue-600">
+      <div className="flex-1 flex items-center justify-center p-8 bg-gradient-to-br from-gray-800 to-gray-700">
         <div className="text-center text-white space-y-8">
           <h2 className="text-6xl font-bold tracking-wider">CINEMA</h2>
           <p className="text-xl text-gray-100 max-w-md">
