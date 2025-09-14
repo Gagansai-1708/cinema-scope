@@ -13,7 +13,7 @@ import { ArrowLeft, Star, Film, Bookmark, Share2, PlayCircle, Award, Heart, Chec
 import Link from 'next/link';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/hooks/use-auth';
@@ -183,6 +183,7 @@ export default function SearchResultPage() {
         <AppLayout rightSidebar={null}>
             <Dialog open={isTrailerOpen} onOpenChange={handleCloseDialog}>
               <DialogContent className="max-w-4xl p-0 bg-black border-0">
+                <DialogTitle className="sr-only">Video Player</DialogTitle>
                 {activeVideoUrl && (
                   <div className="aspect-video">
                     <iframe
