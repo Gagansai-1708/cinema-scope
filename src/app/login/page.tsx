@@ -115,29 +115,29 @@ export default function LoginPage() {
                   <div className="text-red-400 text-sm text-center">{error}</div>
                 )}
 
-                <Button
-                  type="submit"
-                  className="w-full bg-red-600 text-white hover:bg-red-700 font-semibold"
-                  disabled={loading}
-                >
-                  {loading ? 'Signing In...' : 'Sign In'}
-                </Button>
+                 <Button
+                   type="submit"
+                   className="w-full bg-cyan-500 text-white hover:bg-cyan-600 font-semibold"
+                   disabled={loading}
+                 >
+                   {loading ? 'Signing In...' : 'Sign In'}
+                 </Button>
               </form>
 
               <div className="mt-6">
                 <div className="relative">
-                  <Separator className="bg-red-500/30" />
+                  <Separator className="bg-white/20" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="bg-gray-900 px-4 text-sm text-red-400">OR CONTINUE WITH</span>
+                    <span className="bg-transparent px-4 text-sm text-gray-300">OR CONTINUE WITH</span>
                   </div>
                 </div>
 
-                <Button
-                  onClick={handleGoogleSignIn}
-                  variant="outline"
-                  className="w-full mt-6 bg-transparent border-red-500/50 text-white hover:bg-red-500/10"
-                  disabled={loading}
-                >
+                 <Button
+                   onClick={handleGoogleSignIn}
+                   variant="outline"
+                   className="w-full mt-6 bg-transparent border-cyan-500 text-cyan-500 hover:bg-cyan-500/10"
+                   disabled={loading}
+                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -159,14 +159,14 @@ export default function LoginPage() {
                   Google
                 </Button>
 
-                <Button
-                  onClick={handleGuestContinue}
-                  variant="ghost"
-                  className="w-full mt-4 text-red-400 hover:bg-red-500/10 border border-red-500/30"
-                  disabled={loading}
-                >
-                  Continue as Guest
-                </Button>
+                 <Button
+                   onClick={handleGuestContinue}
+                   variant="ghost"
+                   className="w-full mt-4 text-cyan-500 hover:bg-cyan-500/10 border border-cyan-500/30"
+                   disabled={loading}
+                 >
+                   Continue as Guest
+                 </Button>
               </div>
             </CardContent>
           </Card>
@@ -175,12 +175,12 @@ export default function LoginPage() {
           <div className="text-center">
             <p className="text-gray-300">
               Don't have an account?{' '}
-              <button
-                onClick={() => router.push('/signup')}
-                className="text-red-400 hover:text-red-300 hover:underline font-semibold"
-              >
-                Sign Up
-              </button>
+               <button
+                 onClick={() => router.push('/signup')}
+                 className="text-cyan-500 hover:text-cyan-400 hover:underline font-semibold"
+               >
+                 Sign Up
+               </button>
             </p>
           </div>
         </div>
