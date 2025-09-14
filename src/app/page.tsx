@@ -270,6 +270,18 @@ export default function Home() {
       <div className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="p-4">
             <h1 className="text-xl font-bold">Home</h1>
+            {!user && (
+              <div className="mt-2 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+                <p className="text-sm text-purple-300">
+                  You're browsing as a guest. <button 
+                    onClick={() => window.location.href = '/signup'} 
+                    className="underline hover:text-purple-200"
+                  >
+                    Sign up
+                  </button> for full access to bookmark posts and more features.
+                </p>
+              </div>
+            )}
         </div>
       </div>
       <div className="border-t border-border">

@@ -35,12 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
-  // Auto sign in as guest if no user is authenticated
-  useEffect(() => {
-    if (!loading && !user && !isGuest) {
-      signInAsGuest();
-    }
-  }, [loading, user, isGuest]);
+  // Remove automatic guest sign-in - users must explicitly choose guest mode
 
   // Restore guest status and guest ID from localStorage on mount
   useEffect(() => {

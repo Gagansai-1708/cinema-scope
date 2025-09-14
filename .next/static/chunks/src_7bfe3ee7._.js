@@ -241,13 +241,24 @@ const AuthProvider = (param)=>{
     const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [isGuest, setIsGuest] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const { toast: toastFn } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useToast"])();
+    const [guestId, setGuestId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AuthProvider.useEffect": ()=>{
             const unsubscribe = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$firebase$2f$auth$2f$dist$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["onAuthStateChanged"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["auth"], {
                 "AuthProvider.useEffect.unsubscribe": (user)=>{
                     setUser(user);
                     setLoading(false);
+                    // If user is authenticated, clear guest status
+                    if (user) {
+                        setIsGuest(false);
+                        setGuestId(null);
+                        if ("TURBOPACK compile-time truthy", 1) {
+                            window.localStorage.setItem('userType', 'google');
+                            window.localStorage.setItem('loginStatus', 'google');
+                            window.localStorage.removeItem('guest');
+                            window.localStorage.removeItem('guestId');
+                        }
+                    }
                 }
             }["AuthProvider.useEffect.unsubscribe"]);
             return ({
@@ -255,54 +266,75 @@ const AuthProvider = (param)=>{
             })["AuthProvider.useEffect"];
         }
     }["AuthProvider.useEffect"], []);
-    // Restore guest flag from localStorage
+    // Restore guest status and guest ID from localStorage on mount
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AuthProvider.useEffect": ()=>{
             if ("TURBOPACK compile-time truthy", 1) {
-                const stored = window.localStorage.getItem('guest');
-                setIsGuest(stored === '1');
+                const userType = window.localStorage.getItem('userType');
+                const storedGuestId = window.localStorage.getItem('guestId');
+                const loginStatus = window.localStorage.getItem('loginStatus');
+                if (userType === 'guest' && storedGuestId && loginStatus === 'guest') {
+                    setIsGuest(true);
+                    setGuestId(storedGuestId);
+                }
             }
         }
     }["AuthProvider.useEffect"], []);
-    // Wrap toast to match AuthContextType
-    const toast = (param)=>{
+    // Simple toast function that doesn't use hooks
+    const toastFunction = (param)=>{
         let { title, description, variant } = param;
-        toastFn({
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"])({
             title: title ? title.toString() : undefined,
             description: description ? description.toString() : undefined,
             variant
         });
     };
+    const signInAsGuest = ()=>{
+        // Generate a simple guest ID like guest_12345
+        const randomNumber = Math.floor(Math.random() * 90000) + 10000; // 5-digit number
+        const newGuestId = "guest_".concat(randomNumber);
+        setIsGuest(true);
+        setGuestId(newGuestId);
+        if ("TURBOPACK compile-time truthy", 1) {
+            window.localStorage.setItem('userType', 'guest');
+            window.localStorage.setItem('guestId', newGuestId);
+            window.localStorage.setItem('loginStatus', 'guest');
+            window.localStorage.setItem('guest', '1');
+        }
+        toastFunction({
+            title: 'Guest mode',
+            description: "You are browsing as a guest (".concat(newGuestId, ").")
+        });
+    };
+    const signOut = ()=>{
+        if ("TURBOPACK compile-time truthy", 1) {
+            window.localStorage.removeItem('userType');
+            window.localStorage.removeItem('guest');
+            window.localStorage.removeItem('guestId');
+            window.localStorage.removeItem('loginStatus');
+        }
+        setIsGuest(false);
+        setGuestId(null);
+    };
     const value = {
         user,
         loading,
-        toast,
+        toast: toastFunction,
         isGuest,
-        signInAsGuest: ()=>{
-            setIsGuest(true);
-            if ("TURBOPACK compile-time truthy", 1) {
-                window.localStorage.setItem('guest', '1');
-            }
-            toast({
-                title: 'Guest mode',
-                description: 'You are browsing as a guest.'
-            });
-        }
+        guestId,
+        signInAsGuest,
+        signOut
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
         value: value,
         children: children
     }, void 0, false, {
         fileName: "[project]/src/components/auth/auth-provider.tsx",
-        lineNumber: 57,
+        lineNumber: 100,
         columnNumber: 10
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(AuthProvider, "IU2Abvt/OxV33AFVnY2iBbKoNgE=", false, function() {
-    return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$toast$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useToast"]
-    ];
-});
+_s(AuthProvider, "9EVUaMtxn2AkRoevXBJ/BpAagdU=");
 _c = AuthProvider;
 var _c;
 __turbopack_context__.k.register(_c, "AuthProvider");

@@ -26,13 +26,10 @@ export function AppLayout({
     );
   }
 
-  // Allow access for both authenticated users and guests
+  // Redirect to login if not authenticated and not a guest
   if (!user && !isGuest) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+    redirect('/login');
+    return null;
   }
   
   return (
