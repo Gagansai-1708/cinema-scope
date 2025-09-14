@@ -13,7 +13,9 @@ export type AuthContextType = {
   }) => void;
   // Guest browsing support
   isGuest?: boolean;
+  guestId?: string | null;
   signInAsGuest?: () => void;
+  signOut?: () => void;
 };
 
 export type Post = {

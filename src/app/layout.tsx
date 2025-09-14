@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { AuthProvider } from '@/components/auth/auth-provider';
-import { Toaster } from '@/components/ui/toaster';
+// import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'CinemaScope',
@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <AuthProvider>
           {children}
-          <Toaster />
+          {/* <Toaster /> */}
         </AuthProvider>
       </body>
     </html>

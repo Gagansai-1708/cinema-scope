@@ -55,7 +55,7 @@ const menuItems = [
 export function MainSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, toast } = useAuth();
+  const { user, toast, isGuest, guestId } = useAuth();
   const [isPostDialogOpen, setIsPostDialogOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -130,18 +130,18 @@ export function MainSidebar() {
         </Button>
       </SidebarContent>
       <SidebarFooter className="p-2">
-        {user && (
+        {(user || isGuest) && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-auto w-full justify-start p-2 text-left">
                 <div className="flex items-center gap-3 w-full">
                   <Avatar>
-                    <AvatarImage src={user.photoURL ?? undefined} alt={user.displayName ?? 'User'} />
-                    <AvatarFallback>{user.displayName?.charAt(0) ?? user.email?.charAt(0)}</AvatarFallback>
+                    <AvatarImage src={user?.photoURL ?? undefined} alt={user?.displayName ?? 'Guest'} />
+                    <AvatarFallback>{user?.displayName?.charAt(0) ?? user?.email?.charAt(0) ?? 'G'}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 overflow-hidden text-left group-data-[collapsible=icon]:hidden">
-                    <p className="truncate font-semibold text-sm">{user.displayName ?? 'Cinephile'}</p>
-                    <p className="truncate text-xs text-muted-foreground">@{user.email?.split('@')[0] ?? 'cinephile'}</p>
+                    <p className="truncate font-semibold text-sm">{user?.displayName ?? (isGuest ? 'Guest User' : 'Cinephile')}</p>
+                    <p className="truncate text-xs text-muted-foreground">@{user?.email?.split('@')[0] ?? (isGuest ? guestId : 'cinephile')}</p>
                   </div>
                   <MoreHorizontal className="h-4 w-4 ml-auto group-data-[collapsible=icon]:hidden" />
                 </div>
@@ -152,12 +152,12 @@ export function MainSidebar() {
                   <div className="flex flex-col gap-2 w-full">
                       <div className="flex items-center gap-3">
                           <Avatar>
-                              <AvatarImage src={user.photoURL ?? undefined} alt={user.displayName ?? 'User'} />
-                              <AvatarFallback>{user.displayName?.charAt(0) ?? user.email?.charAt(0)}</AvatarFallback>
+                              <AvatarImage src={user?.photoURL ?? undefined} alt={user?.displayName ?? 'Guest'} />
+                              <AvatarFallback>{user?.displayName?.charAt(0) ?? user?.email?.charAt(0) ?? 'G'}</AvatarFallback>
                           </Avatar>
                           <div className="flex-1 overflow-hidden">
-                              <p className="truncate font-semibold text-sm">{user.displayName ?? 'Cinephile'}</p>
-                              <p className="truncate text-xs text-muted-foreground">@{user.email?.split('@')[0] ?? 'cinephile'}</p>
+                              <p className="truncate font-semibold text-sm">{user?.displayName ?? (isGuest ? 'Guest User' : 'Cinephile')}</p>
+                              <p className="truncate text-xs text-muted-foreground">@{user?.email?.split('@')[0] ?? (isGuest ? guestId : 'cinephile')}</p>
                           </div>
                       </div>
                       <div className="flex gap-4 text-sm mt-1">
@@ -171,14 +171,24 @@ export function MainSidebar() {
                   </div>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push('/settings')}>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleSignOut}>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
-              </DropdownMenuItem>
+              {user && (
+                <>
+                  <DropdownMenuItem onClick={() => router.push('/settings')}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </>
+              )}
+              {isGuest && (
+                <DropdownMenuItem onClick={() => router.push('/signup')}>
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Sign up for full access</span>
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         )}

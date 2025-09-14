@@ -164,13 +164,23 @@ export default function Home() {
         return;
     }
 
-    if (!user) {
-        toast({ title: "Not Authenticated", description: "You need to be logged in to interact with posts.", variant: "destructive" });
-        return;
-    }
-
+    // Allow interactions for both authenticated users and guests
     if (stateSet && stateSetter) {
         const isUndoing = stateSet.has(post.id);
+        
+        // For guests, just update local state without database changes
+        if (!user) {
+            const newSet = new Set(stateSet);
+            if (isUndoing) {
+                newSet.delete(post.id);
+            } else {
+                newSet.add(post.id);
+            }
+            stateSetter(newSet);
+            return;
+        }
+
+        // For authenticated users, update database
         const countField = action === 'like' ? 'likes' : 'retweets';
         const postRef = doc(db, 'posts', post.id);
 
@@ -201,8 +211,9 @@ export default function Home() {
         return;
     }
       
+    // For guests, show a message that they need to sign in for bookmarks
     if (!user) {
-      toast({ title: 'Not logged in', description: 'You need to be logged in to bookmark posts.', variant: 'destructive'});
+      toast({ title: 'Sign in to bookmark', description: 'Create an account to save posts to your bookmarks.', variant: 'default'});
       return;
     }
 

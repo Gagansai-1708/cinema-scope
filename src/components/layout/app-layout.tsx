@@ -15,7 +15,7 @@ export function AppLayout({
   children: React.ReactNode;
   rightSidebar?: React.ReactNode | null;
 }) {
-  const { user, loading } = useAuth();
+  const { user, loading, isGuest } = useAuth();
   const isMobile = useIsMobile();
 
   if (loading) {
@@ -26,9 +26,13 @@ export function AppLayout({
     );
   }
 
-  if (!user) {
-    redirect('/login');
-    return null;
+  // Allow access for both authenticated users and guests
+  if (!user && !isGuest) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
   
   return (

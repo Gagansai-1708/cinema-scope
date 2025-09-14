@@ -8,18 +8,23 @@ export function GuestButton() {
   const { signInAsGuest } = useAuth();
   const router = useRouter();
 
+  const handleGuestSignIn = () => {
+    if (signInAsGuest) {
+      signInAsGuest();
+      router.replace('/');
+    }
+  };
+
   return (
     <Button
       variant="secondary"
       className="ml-auto"
-      onClick={() => {
-        signInAsGuest();
-        router.replace('/');
-      }}
+      onClick={handleGuestSignIn}
     >
       Continue as Guest
     </Button>
   );
 }
+
 
 
