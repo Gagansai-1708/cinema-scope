@@ -122,7 +122,8 @@ export default function Home() {
         setLoading(false);
     }, (error) => {
         console.error("Error fetching posts: ", error);
-        toast({ title: "Error", description: "Could not fetch posts. Showing sample data.", variant: "destructive" });
+        // Show sample data when Firestore is unavailable
+        console.log("Using sample data due to Firestore connection issue");
         setPosts(mockPosts);
         setLoading(false);
     });
