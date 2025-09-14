@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
@@ -21,12 +21,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Add error handling for Firestore connection
-if (typeof window !== 'undefined') {
-  // Only run in browser environment
-  db.enableNetwork().catch((error) => {
-    console.warn('Firestore network connection issue:', error);
-  });
-}
+// Firestore will automatically handle connection issues
+// No additional configuration needed
 
 export { app, auth, db, storage };
