@@ -6,6 +6,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'picsum.photos' },
       { protocol: 'https', hostname: 'pbs.twimg.com' },
       { protocol: 'https', hostname: 'image.tmdb.org' },
+      { protocol: 'https', hostname: 'img.youtube.com' },
     ],
   },
 }
